@@ -1,59 +1,33 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import Form from "./Form";
+import axios from "axios";
 import ListItems from "./ListItems";
 
 import "./App.css";
 
 function App() {
-  const [todo, setTodo] = useState({
-    items: [],
-    currentItem: {
-      text: "",
-      key: "",
-    },
+  const [todos, setTodos] = useState([]);
+
+  useEffect(() => {
+    if (todos.length === 0) {
+      axios
+        .get("https://matodo.umbrellacorp.org/todos") //
+        .then((res) => {
+          setTodos(res.data);
+        })
+        .catch((error) => console.error(error));
+    }
   });
 
-  const handleChange = (e) => {
-    setTodo({
-      ...todo,
-      currentItem: {
-        ...todo.currentItem,
-        text: e.target.value,
-        key: Date.now(),
-      },
-    });
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    const newItem = todo.currentItem;
-    console.log(newItem);
-    if (newItem.text !== "") {
-      const newItems = [...todo.items, newItem];
-      setTodo({
-        ...todo,
-        items: newItems,
-        currentItem: {
-          ...todo.currentItem,
-          text: "",
-          key: "",
-        },
-      });
-    }
+  const addNewTodo = (newTodo) => {
+    setTodos([newTodo, ...todos]);
   };
 
   return (
     <div className="App">
-      <header>
-        <form onSubmit={handleSubmit} id="to-do-form">
-          <input
-            type="text"
-            placeholder="Enter Text"
-            value={todo.currentItem.text}
-            onChange={handleChange}
-          />
-          <button type="submit">Add</button>
-        </form>
-      </header>
+      <p>Currently displays {todos.length} todos</p>
+      <Form addNewTodo={addNewTodo} />
+      <ListItems todos={todos} />
     </div>
   );
 }

@@ -1,6 +1,15 @@
 import React from "react";
 import "./ListItems.css";
+import ListItem from "./ListItem";
 
-const ListItems = (props) => {
-  return <h1>From ListItems.js</h1>;
-};
+function ListItems({ todos }) {
+  return (
+    <div>
+      {todos.map((todo) => (
+        <ListItem todo={todo} />
+      ))}
+    </div>
+  );
+}
+
+export default ListItems;
