@@ -23,6 +23,8 @@ function App() {
     setTodos([newTodo, ...todos]);
   };
 
+  const deleteItem = (id) => {};
+
   return (
     <div className="App">
       <p>Currently displays {todos.length} todos</p>
