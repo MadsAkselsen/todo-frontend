@@ -23,13 +23,32 @@ function App() {
     setTodos([newTodo, ...todos]);
   };
 
-  const deleteItem = (id) => {};
+  const toggleComplete = (id) => {
+    console.log("toggle is executing");
+    setTodos(
+      todos.map((todo) => {
+        if (todo.id === id) {
+          console.log(todo.complete);
+          return { ...todo, complete: !todo.complete };
+        }
+        return todo;
+      })
+    );
+  };
+
+  const deleteTodo = (id) => {
+    setTodos(todos.filter((todo) => todo.id !== id));
+  };
 
   return (
     <div className="App">
       <p>Currently displays {todos.length} todos</p>
       <Form addNewTodo={addNewTodo} />
-      <ListItems todos={todos} />
+      <ListItems
+        todos={todos}
+        toggleComplete={toggleComplete}
+        deleteTodo={deleteTodo}
+      />
     </div>
   );
 }
