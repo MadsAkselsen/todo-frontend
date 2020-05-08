@@ -42,13 +42,17 @@ function App() {
 
   return (
     <div className="App">
-      <p>Currently displays {todos.length} todos</p>
-      <Form addNewTodo={addNewTodo} />
-      <ListItems
-        todos={todos}
-        toggleComplete={toggleComplete}
-        deleteTodo={deleteTodo}
-      />
+      <div style={{ backgroundColor: "rgb(11, 2, 37)" }}>
+        <h1>TODOS</h1>
+        <Form addNewTodo={addNewTodo} />
+      </div>
+      <div style={{ backgroundColor: "rgb(27, 112, 137)", padding: "10px" }}>
+        <ListItems
+          todos={todos}
+          toggleComplete={toggleComplete}
+          deleteTodo={deleteTodo}
+        />
+      </div>
     </div>
   );
 }

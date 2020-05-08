@@ -1,11 +1,18 @@
 body {
-  background-color: #9266ff;
+  background-color: hsl(142, 100%, 98%);
 }
 
 .App {
   background-color: #3f3160;
   width: 400px;
   margin: 40px auto;
+}
+
+h1 {
+  text-align: center;
+  margin: 0px;
+  padding: 20px 10px 0px 10px;
+  color: white;
 }
 
 #to-do-form input {

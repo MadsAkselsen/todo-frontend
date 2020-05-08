@@ -31,7 +31,7 @@ function Form({ addNewTodo }) {
   };
 
   return (
-    <div className="App">
+    <div>
       <form onSubmit={handleSubmit} id="to-do-form">
         <input
           type="text"
