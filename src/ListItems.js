@@ -2,7 +2,7 @@ import React from "react";
 import "./ListItems.css";
 import ListItem from "./ListItem";
 
-function ListItems({ todos, toggleComplete, deleteTodo }) {
+function ListItems({ todos, toggleComplete, deleteTodo, setUpdate }) {
   return (
     <div>
       {todos.map((todo) => (
@@ -10,6 +10,7 @@ function ListItems({ todos, toggleComplete, deleteTodo }) {
           todo={todo}
           key={todo.id}
           toggleComplete={toggleComplete}
+          setUpdate={setUpdate}
           deleteTodo={deleteTodo}
         />
       ))}

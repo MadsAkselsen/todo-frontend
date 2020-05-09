@@ -5,13 +5,13 @@ function Form({ addNewTodo }) {
     title: "",
     id: "",
     complete: false,
+    edit: false,
   });
 
   const handleChange = (e) => {
     newSetTodo({
       ...newTodo,
       title: e.target.value,
-      id: Date.now(),
     });
   };
 

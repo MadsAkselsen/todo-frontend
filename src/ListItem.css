@@ -1,0 +1,11 @@
+.list p input {
+  background-color: transparent;
+  border: 0;
+  color: black;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.list p input:focus {
+  outline: none;
+}

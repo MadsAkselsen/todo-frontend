@@ -1,8 +1,10 @@
 import React from "react";
+import "./ListItem.css";
 
-function ListItem({ todo, toggleComplete, deleteTodo }) {
+function ListItem({ todo, toggleComplete, deleteTodo, setUpdate }) {
   return (
     <div
+      className="list"
       style={{
         display: "flex",
         justifyContent: "space-between",
@@ -16,12 +18,18 @@ function ListItem({ todo, toggleComplete, deleteTodo }) {
       ></input>
       <p
         style={{
-          width: "70%",
-          color: "white",
-          textDecoration: todo.complete ? "line-through" : null,
+          width: "80%",
         }}
       >
-        {todo.title}
+        <input
+          style={{ width: "100%", color: todo.complete ? "green" : null }}
+          type="text"
+          id={todo.id}
+          value={todo.title}
+          onChange={(e) => {
+            setUpdate(e.target.value, todo.id);
+          }}
+        />
       </p>
       <button
         onClick={() => deleteTodo(todo.id)}

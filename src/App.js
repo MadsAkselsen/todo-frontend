@@ -23,12 +23,23 @@ function App() {
     setTodos([newTodo, ...todos]);
   };
 
-  const toggleComplete = (id) => {
-    console.log("toggle is executing");
+  const setUpdate = (newTitle, id) => {
     setTodos(
       todos.map((todo) => {
         if (todo.id === id) {
-          console.log(todo.complete);
+          console.log("works");
+          return { ...todo, title: newTitle };
+        }
+
+        return todo;
+      })
+    );
+  };
+
+  const toggleComplete = (id) => {
+    setTodos(
+      todos.map((todo) => {
+        if (todo.id === id) {
           return { ...todo, complete: !todo.complete };
         }
         return todo;
@@ -46,10 +57,11 @@ function App() {
         <h1>TODOS</h1>
         <Form addNewTodo={addNewTodo} />
       </div>
-      <div style={{ backgroundColor: "rgb(27, 112, 137)", padding: "10px" }}>
+      <div style={{ backgroundColor: "rgb(240, 240, 240)", padding: "10px" }}>
         <ListItems
           todos={todos}
           toggleComplete={toggleComplete}
+          setUpdate={setUpdate}
           deleteTodo={deleteTodo}
         />
       </div>
