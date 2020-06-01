@@ -2,32 +2,45 @@ import React, { useState, useEffect } from "react";
 import Form from "./Form";
 import axios from "axios";
 import ListItems from "./ListItems";
-
 import "./App.css";
+
+const api = axios.create({
+  baseURL: `https://matodo.umbrellacorp.org/todos`,
+});
 
 function App() {
   const [todos, setTodos] = useState([]);
 
   useEffect(() => {
-    if (todos.length === 0) {
-      axios
-        .get("https://matodo.umbrellacorp.org/todos") //
-        .then((res) => {
-          setTodos(res.data);
-        })
-        .catch((error) => console.error(error));
-    }
+    api
+      .get("/")
+      .then((res) => {
+        setTodos(res.data);
+      })
+      .catch((error) => console.error(error));
   });
 
   const addNewTodo = (newTodo) => {
-    setTodos([newTodo, ...todos]);
+    api
+      .post("/", {
+        title: newTodo.title,
+      })
+      .then(function (response) {
+        console.log("adding new todo", response);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
   };
+
+  /*  const addNewTodo = (newTodo) => {
+    setTodos([newTodo, ...todos]);
+  }; */
 
   const setUpdate = (newTitle, id) => {
     setTodos(
       todos.map((todo) => {
         if (todo.id === id) {
-          console.log("works");
           return { ...todo, title: newTitle };
         }
 
@@ -47,8 +60,20 @@ function App() {
     );
   };
 
-  const deleteTodo = (id) => {
+  /*  const deleteTodo = (id) => {
     setTodos(todos.filter((todo) => todo.id !== id));
+    
+  }; */
+
+  const deleteTodo = (id) => {
+    api
+      .delete(`/${id}`)
+      .then(function (response) {
+        console.log("deleting todo", response);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
   };
 
   return (

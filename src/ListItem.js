@@ -15,6 +15,7 @@ function ListItem({ todo, toggleComplete, deleteTodo, setUpdate }) {
         checked={todo.complete ? true : false}
         type="checkbox"
         onClick={() => toggleComplete(todo.id)}
+        readOnly
       ></input>
       <p
         style={{
@@ -31,6 +32,12 @@ function ListItem({ todo, toggleComplete, deleteTodo, setUpdate }) {
           }}
         />
       </p>
+      <button
+        onClick={() => deleteTodo(todo.id)}
+        style={{ height: "20px", fontSize: "12px" }}
+      >
+        Update
+      </button>
       <button
         onClick={() => deleteTodo(todo.id)}
         style={{ height: "20px", fontSize: "12px" }}

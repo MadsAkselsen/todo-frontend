@@ -3,9 +3,6 @@ import React, { useState } from "react";
 function Form({ addNewTodo }) {
   const [newTodo, newSetTodo] = useState({
     title: "",
-    id: "",
-    complete: false,
-    edit: false,
   });
 
   const handleChange = (e) => {
