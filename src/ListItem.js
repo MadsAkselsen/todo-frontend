@@ -1,7 +1,7 @@
 import React from "react";
 import "./ListItem.css";
 
-function ListItem({ todo, toggleComplete, deleteTodo, setUpdate }) {
+function ListItem({ todo, toggleComplete, deleteTodo, setUpdate, saveChange }) {
   return (
     <div
       className="list"
@@ -28,15 +28,15 @@ function ListItem({ todo, toggleComplete, deleteTodo, setUpdate }) {
           id={todo.id}
           value={todo.title}
           onChange={(e) => {
-            setUpdate(e.target.value, todo.id);
+            //setUpdate(e.target.value, todo.id);
           }}
         />
       </p>
       <button
-        onClick={() => deleteTodo(todo.id)}
+        onClick={() => saveChange(todo.id)}
         style={{ height: "20px", fontSize: "12px" }}
       >
-        Update
+        Save
       </button>
       <button
         onClick={() => deleteTodo(todo.id)}

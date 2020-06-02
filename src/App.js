@@ -12,14 +12,17 @@ function App() {
   const [todos, setTodos] = useState([]);
 
   useEffect(() => {
-    api
-      .get("/")
-      .then((res) => {
-        //backend is sorting the todos in its own way, so we have to do our own sorting here
-        const sortedTodos = res.data.sort((a, b) => (a.id > b.id ? 1 : -1));
-        setTodos(sortedTodos);
-      })
-      .catch((error) => console.error(error));
+    if (todos.length === 0) {
+      api
+        .get("/")
+        .then((res) => {
+          //backend is sorting the todos in its own way, so we have to do our own sorting here
+          const sortedTodos = res.data.sort((a, b) => (a.id > b.id ? 1 : -1));
+          console.log("setting todos initially");
+          setTodos(sortedTodos);
+        })
+        .catch((error) => console.error(error));
+    }
   });
 
   const addNewTodo = (newTodo) => {
@@ -29,6 +32,22 @@ function App() {
       })
       .then(function (response) {
         console.log("adding new todo", response);
+        if (response) {
+          api
+            .get("/")
+            .then((res) => {
+              //! Refactor code here (doublcate code)
+              //backend is sorting the todos in its own way, so we have to do our own sorting here
+              const sortedTodos = res.data.sort((a, b) =>
+                a.id > b.id ? 1 : -1
+              );
+              console.log("setting todos", sortedTodos);
+              setTodos(sortedTodos);
+            })
+            .catch(function (error) {
+              console.log(error);
+            });
+        }
       })
       .catch(function (error) {
         console.log(error);
@@ -51,6 +70,19 @@ function App() {
     );
   };
 
+  const saveChange = (newTitle, id) => {
+    api
+      .patch(`/${id}`, {
+        title: newTitle,
+      })
+      .then(function (response) {
+        console.log("changing todo", response);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  };
+
   const toggleComplete = (id) => {
     for (let i = 0; i < todos.length; i++) {
       if (todos[i].id === id) {
@@ -61,6 +93,22 @@ function App() {
             })
             .then(function (response) {
               console.log("patching todo", response);
+              if (response) {
+                api
+                  .get("/")
+                  .then((res) => {
+                    //! Refactor code here (doublcate code)
+                    //backend is sorting the todos in its own way, so we have to do our own sorting here
+                    const sortedTodos = res.data.sort((a, b) =>
+                      a.id > b.id ? 1 : -1
+                    );
+                    console.log("setting todos", sortedTodos);
+                    setTodos(sortedTodos);
+                  })
+                  .catch(function (error) {
+                    console.log(error);
+                  });
+              }
             })
             .catch(function (error) {
               console.log(error);
@@ -72,6 +120,22 @@ function App() {
             })
             .then(function (response) {
               console.log("patching todo", response);
+              if (response) {
+                api
+                  .get("/")
+                  .then((res) => {
+                    //! Refactor code here (doublcate code)
+                    //backend is sorting the todos in its own way, so we have to do our own sorting here
+                    const sortedTodos = res.data.sort((a, b) =>
+                      a.id > b.id ? 1 : -1
+                    );
+                    console.log("setting todos", sortedTodos);
+                    setTodos(sortedTodos);
+                  })
+                  .catch(function (error) {
+                    console.log(error);
+                  });
+              }
             })
             .catch(function (error) {
               console.log(error);
@@ -89,8 +153,25 @@ function App() {
   const deleteTodo = (id) => {
     api
       .delete(`/${id}`)
+
       .then(function (response) {
         console.log("deleting todo", response);
+        if (response) {
+          api
+            .get("/")
+            .then((res) => {
+              //! Refactor code here (doublcate code)
+              //backend is sorting the todos in its own way, so we have to do our own sorting here
+              const sortedTodos = res.data.sort((a, b) =>
+                a.id > b.id ? 1 : -1
+              );
+              console.log("setting todos", sortedTodos);
+              setTodos(sortedTodos);
+            })
+            .catch(function (error) {
+              console.log(error);
+            });
+        }
       })
       .catch(function (error) {
         console.log(error);
@@ -109,6 +190,7 @@ function App() {
           toggleComplete={toggleComplete}
           setUpdate={setUpdate}
           deleteTodo={deleteTodo}
+          saveChange={saveChange}
         />
       </div>
     </div>
