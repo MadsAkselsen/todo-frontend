@@ -15,7 +15,9 @@ function App() {
     api
       .get("/")
       .then((res) => {
-        setTodos(res.data);
+        //backend is sorting the todos in its own way, so we have to do our own sorting here
+        const sortedTodos = res.data.sort((a, b) => (a.id > b.id ? 1 : -1));
+        setTodos(sortedTodos);
       })
       .catch((error) => console.error(error));
   });
@@ -50,14 +52,33 @@ function App() {
   };
 
   const toggleComplete = (id) => {
-    setTodos(
-      todos.map((todo) => {
-        if (todo.id === id) {
-          return { ...todo, complete: !todo.complete };
+    for (let i = 0; i < todos.length; i++) {
+      if (todos[i].id === id) {
+        if (todos[i].complete === 0) {
+          api
+            .patch(`/${id}`, {
+              complete: 1,
+            })
+            .then(function (response) {
+              console.log("patching todo", response);
+            })
+            .catch(function (error) {
+              console.log(error);
+            });
+        } else {
+          api
+            .patch(`/${id}`, {
+              complete: 0,
+            })
+            .then(function (response) {
+              console.log("patching todo", response);
+            })
+            .catch(function (error) {
+              console.log(error);
+            });
         }
-        return todo;
-      })
-    );
+      }
+    }
   };
 
   /*  const deleteTodo = (id) => {
