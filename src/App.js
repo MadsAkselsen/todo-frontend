@@ -71,6 +71,7 @@ function App() {
   };
 
   const saveChange = (newTitle, id) => {
+    console.log(newTitle);
     api
       .patch(`/${id}`, {
         title: newTitle,

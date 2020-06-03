@@ -8,4 +8,10 @@
 
 .list p input:focus {
   outline: none;
+  background-color: white;
+}
+
+.list p input:hover {
+  outline: none;
+  background-color: white;
 }

@@ -1,7 +1,13 @@
-import React from "react";
+import React, { useState } from "react";
 import "./ListItem.css";
 
 function ListItem({ todo, toggleComplete, deleteTodo, setUpdate, saveChange }) {
+  const [editedTitle, setEditedTitle] = useState({ editedTitle: "" });
+
+  const updateEditedTitle = (e) => {
+    setEditedTitle({ editedTitle: e });
+  };
+
   return (
     <div
       className="list"
@@ -23,18 +29,23 @@ function ListItem({ todo, toggleComplete, deleteTodo, setUpdate, saveChange }) {
         }}
       >
         <input
-          style={{ width: "100%", color: todo.complete ? "green" : null }}
+          style={{
+            width: "100%",
+            padding: "5px",
+            color: todo.complete ? "green" : null,
+          }}
           type="text"
           id={todo.id}
           value={todo.title}
           onChange={(e) => {
-            //setUpdate(e.target.value, todo.id);
+            setUpdate(e.target.value, todo.id);
+            updateEditedTitle(e.target.value);
           }}
         />
       </p>
       <button
-        onClick={() => saveChange(todo.id)}
-        style={{ height: "20px", fontSize: "12px" }}
+        onClick={() => saveChange(editedTitle.editedTitle, todo.id)}
+        style={{ height: "20px", marginRight: "5px", fontSize: "12px" }}
       >
         Save
       </button>
