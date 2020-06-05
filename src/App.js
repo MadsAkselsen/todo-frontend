@@ -25,6 +25,13 @@ function App() {
     }
   });
 
+  const getTodos = (res) => {
+    //backend is sorting the todos in its own way, so we have to do our own sorting here
+    const sortedTodos = res.data.sort((a, b) => (a.id > b.id ? 1 : -1));
+    console.log("setting todos", sortedTodos);
+    setTodos(sortedTodos);
+  };
+
   const addNewTodo = (newTodo) => {
     api
       .post("/", {
@@ -35,15 +42,7 @@ function App() {
         if (response) {
           api
             .get("/")
-            .then((res) => {
-              //! Refactor code here (doublcate code)
-              //backend is sorting the todos in its own way, so we have to do our own sorting here
-              const sortedTodos = res.data.sort((a, b) =>
-                a.id > b.id ? 1 : -1
-              );
-              console.log("setting todos", sortedTodos);
-              setTodos(sortedTodos);
-            })
+            .then(getTodos)
             .catch(function (error) {
               console.log(error);
             });
@@ -54,10 +53,7 @@ function App() {
       });
   };
 
-  /*  const addNewTodo = (newTodo) => {
-    setTodos([newTodo, ...todos]);
-  }; */
-
+  //*Update input on each todo
   const setUpdate = (newTitle, id) => {
     setTodos(
       todos.map((todo) => {
@@ -84,6 +80,7 @@ function App() {
       });
   };
 
+  //! This should be refactored. code too long
   const toggleComplete = (id) => {
     for (let i = 0; i < todos.length; i++) {
       if (todos[i].id === id) {
@@ -97,15 +94,7 @@ function App() {
               if (response) {
                 api
                   .get("/")
-                  .then((res) => {
-                    //! Refactor code here (doublcate code)
-                    //backend is sorting the todos in its own way, so we have to do our own sorting here
-                    const sortedTodos = res.data.sort((a, b) =>
-                      a.id > b.id ? 1 : -1
-                    );
-                    console.log("setting todos", sortedTodos);
-                    setTodos(sortedTodos);
-                  })
+                  .then(getTodos)
                   .catch(function (error) {
                     console.log(error);
                   });
@@ -124,15 +113,7 @@ function App() {
               if (response) {
                 api
                   .get("/")
-                  .then((res) => {
-                    //! Refactor code here (doublcate code)
-                    //backend is sorting the todos in its own way, so we have to do our own sorting here
-                    const sortedTodos = res.data.sort((a, b) =>
-                      a.id > b.id ? 1 : -1
-                    );
-                    console.log("setting todos", sortedTodos);
-                    setTodos(sortedTodos);
-                  })
+                  .then(getTodos)
                   .catch(function (error) {
                     console.log(error);
                   });
@@ -146,11 +127,6 @@ function App() {
     }
   };
 
-  /*  const deleteTodo = (id) => {
-    setTodos(todos.filter((todo) => todo.id !== id));
-    
-  }; */
-
   const deleteTodo = (id) => {
     api
       .delete(`/${id}`)
@@ -160,15 +136,7 @@ function App() {
         if (response) {
           api
             .get("/")
-            .then((res) => {
-              //! Refactor code here (doublcate code)
-              //backend is sorting the todos in its own way, so we have to do our own sorting here
-              const sortedTodos = res.data.sort((a, b) =>
-                a.id > b.id ? 1 : -1
-              );
-              console.log("setting todos", sortedTodos);
-              setTodos(sortedTodos);
-            })
+            .then(getTodos)
             .catch(function (error) {
               console.log(error);
             });
