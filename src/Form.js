@@ -28,7 +28,7 @@ function Form({ addNewTodo }) {
   };
 
   return (
-    <div>
+    <div className="formWrapper">
       <form onSubmit={handleSubmit} id="to-do-form">
         <input
           type="text"

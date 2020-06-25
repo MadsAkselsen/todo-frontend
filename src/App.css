@@ -1,11 +1,20 @@
 body {
   background-color: hsl(142, 100%, 98%);
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-image: url("./images/backgroundImage.jpg");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 
 .App {
   background-color: #3f3160;
   width: 400px;
   margin: 40px auto;
+  box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.5);
 }
 
 h1 {
